@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'demo/listview_demo.dart';
+import 'demo/drawer_demo.dart';
+import 'demo/bottom_navigation_bar_demo.dart';
 
 void main() {
   runApp(
@@ -13,7 +15,9 @@ class App extends StatelessWidget {
       return MaterialApp(
         home: Home(),
         theme: ThemeData(
-          primarySwatch: Colors.blue
+          primarySwatch: Colors.blue,
+          highlightColor: Colors.green,
+          splashColor: Colors.red
         ),
       );
     }
@@ -22,17 +26,11 @@ class App extends StatelessWidget {
 class Home extends StatelessWidget {
   @override
     Widget build(BuildContext context) {
-      // TODO: implement build
       return DefaultTabController(
         length: 3,
         child: Scaffold(
           backgroundColor: Colors.grey[100],
           appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.menu),
-              tooltip: 'Navigation',
-              onPressed: () => debugPrint('点击了菜单按钮'),
-            ),
             title: Text('haha'),
             actions: <Widget>[
               IconButton(
@@ -43,7 +41,10 @@ class Home extends StatelessWidget {
             ],
             elevation: 0.0,
             bottom: TabBar(
-              unselectedLabelColor: Colors.white70,
+              unselectedLabelColor: Colors.black38,
+              indicatorColor: Colors.black54,
+              indicatorSize: TabBarIndicatorSize.label,
+              indicatorWeight: 1.0,
               tabs: <Widget>[
                 Tab(icon: Icon(Icons.local_florist)),
                 Tab(icon: Icon(Icons.change_history)),
@@ -53,11 +54,13 @@ class Home extends StatelessWidget {
           ),
           body: TabBarView(
             children: <Widget>[
-              Icon(Icons.local_florist,size: 128.0,color: Colors.black12),
+              ListViewDemo(),
               Icon(Icons.change_history,size: 128.0,color: Colors.black12),
               Icon(Icons.directions_bike,size: 128.0,color: Colors.black12)
             ],
           ),
+          drawer: drawerDemo(),
+          bottomNavigationBar: BottomNavigationBarDemo()
         ),
       );
     }
