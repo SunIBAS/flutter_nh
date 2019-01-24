@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_one/model/post.dart';
+import 'demo/listview_demo.dart';
 
 void main() {
   runApp(
@@ -20,43 +20,72 @@ class App extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
-  Widget _listItemBuilder(BuildContext context,int index) {
-    print('[index]:' + index.toString());
-    var img = new Image.network(posts[index].imageUrl);
-
-    return Container(
-      color: Colors.white,
-      margin: EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          img,
-          SizedBox(height: 16.0),
-          Text(
-            posts[index].title,
-            style: Theme.of(context).textTheme.title,
+  @override
+    Widget build(BuildContext context) {
+      // TODO: implement build
+      return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          backgroundColor: Colors.grey[100],
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.menu),
+              tooltip: 'Navigation',
+              onPressed: () => debugPrint('点击了菜单按钮'),
+            ),
+            title: Text('haha'),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.search),
+                tooltip: 'Search',
+                onPressed: () => debugPrint('点击了搜索按钮'),
+              )
+            ],
+            elevation: 0.0,
+            bottom: TabBar(
+              unselectedLabelColor: Colors.white70,
+              tabs: <Widget>[
+                Tab(icon: Icon(Icons.local_florist)),
+                Tab(icon: Icon(Icons.change_history)),
+                Tab(icon: Icon(Icons.directions_bike))
+              ],
+            ),
           ),
-          Text(
-            posts[index].author,
-            style: Theme.of(context).textTheme.subhead,
+          body: TabBarView(
+            children: <Widget>[
+              Icon(Icons.local_florist,size: 128.0,color: Colors.black12),
+              Icon(Icons.change_history,size: 128.0,color: Colors.black12),
+              Icon(Icons.directions_bike,size: 128.0,color: Colors.black12)
+            ],
           ),
-          SizedBox(height: 16.0)
-        ],
-      ),
-    );
-  }
+        ),
+      );
+    }
+}
 
+class HomeView extends StatelessWidget {
   @override
     Widget build(BuildContext context) {
       return Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.menu),
+            tooltip: 'Navigation',
+            onPressed: () => debugPrint('点击了菜单按钮'),
+          ),
           title: Text('haha'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              tooltip: 'Search',
+              onPressed: () => debugPrint('点击了搜索按钮'),
+            )
+          ],
           elevation: 0.0,
         ),
-        body: ListView.builder(
-          itemCount: posts.length,
-          itemBuilder: _listItemBuilder,
-        ),
+        body: ListViewDemo(),
       );
     }
 }
+
